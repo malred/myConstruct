@@ -3,10 +3,7 @@ package utils;
 import entitys.User;
 import entitys.tStu;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +12,8 @@ import java.util.Map;
  * @create ---
  */
 public class iConstruct {
-    //    @iset(setName = "name", setData = "张三",setNames = {"name"})
-    @iset(setNames = {"name", "age"}, setDatas = {"李四", "18"})
-    User user;
-    @iset(setNames = {"name", "age"}, setDatas = {"李四", "18"})
-    tStu stu;
+    //a map to save all class
+    private static Map<Object,Object> dogs;
     //传入当前类的路径,创建新的user实例
     public static Map<Object, Object> iuser(String targetClass) throws Exception {
         //路径改为全类名
@@ -89,11 +83,17 @@ public class iConstruct {
 
         return u;
     }
-
-
-    public static void main(String[] args) throws Exception {
-        //传入路径
-        System.out.println(
-                iuser("utils/iConstruct.java"));
+    public static Map<Object, Object> getDogs(String nowClass)throws Exception{
+        dogs = iuser(nowClass);
+        return dogs;
     }
+    //get class by id
+    public static Object getDogByName(String className)throws Exception{
+        return dogs.get(className);
+    }
+    //just new class , than U can get a map named dogs which have all class you need
+    public iConstruct(String nowClass) throws Exception{
+        getDogs(nowClass);
+    }
+
 }

@@ -24,14 +24,15 @@ public class t {
         System.out.println(iuser);
     }
     public static void main(String[] args) throws Exception{
-        Map iuser = iConstruct.
-                iuser("utils/t.java");
-        System.out.println(iuser);
-        User user = (User)iuser.get("user");
-        tStu stu = (tStu) iuser.get("stu");
-        tStu stu1 = (tStu) iuser.get("stu1");
-        System.out.println(user);
-        System.out.println(stu);
-        System.out.println(stu1);
+//        Map iuser = iConstruct.
+//                iuser("utils/t.java");
+        new iConstruct(t.class.getName());
+//        System.out.println(iuser);
+//        User user = (User)iuser.get("user");
+//        tStu stu = (tStu) iuser.get("stu");
+//        tStu stu1 = (tStu) iuser.get("stu1");
+//        System.out.println(user);
+//        System.out.println(stu);
+//        System.out.println(stu1);
     }
 }
