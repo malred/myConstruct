@@ -1,10 +1,9 @@
-package utils;
+package com.example.mybatispluslearn01.utils;
 
 
-import entitys.User;
-import entitys.tStu;
+import com.example.mybatispluslearn01.entitys.User;
+import com.example.mybatispluslearn01.entitys.tStu;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,12 +19,12 @@ public class t {
     tStu stu1;
     public void t1()throws Exception{
         Map iuser = iConstruct.
-                iuser("utils/t.java");
+                iuser("com/example/mybatispluslearn01/utils/t.java", User.class);
         System.out.println(iuser);
     }
     public static void main(String[] args) throws Exception{
         Map iuser = iConstruct.
-                iuser("utils/t.java");
+                iuser("com/example/mybatispluslearn01/utils/t.java",User.class);
         System.out.println(iuser);
         User user = (User)iuser.get("user");
         tStu stu = (tStu) iuser.get("stu");

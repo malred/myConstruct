@@ -1,12 +1,10 @@
-package utils;
+package com.example.mybatispluslearn01.utils;
 
-import entitys.User;
-import entitys.tStu;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
+import com.example.mybatispluslearn01.entitys.User;
+import com.example.mybatispluslearn01.entitys.tStu;
+
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,12 +19,12 @@ public class iConstruct {
     @iset(setNames = {"name", "age"}, setDatas = {"李四", "18"})
     tStu stu;
     //传入当前类的路径,创建新的user实例
-    public static Map<Object, Object> iuser(String targetClass) throws Exception {
+    public static Map<Object, Object> iuser(String targetClass,Class c) throws Exception {
         //路径改为全类名
         targetClass = iUtils.getClassName(targetClass);
         Class clazz = Class.forName(targetClass);
         Map<Object,Object> u = new HashMap<>(); //准备返回的类
-
+        if (clazz.getDeclaredField("user") != null) {
 //            System.out.println(clazz.getDeclaredFields()[1].toString());
             //获取当前类所有的全类名
             String[] classes = new String[clazz.getDeclaredFields().length];
@@ -86,7 +84,7 @@ public class iConstruct {
                 u.put(classes[i],iu);
             }
         }
-
+        }
         return u;
     }
 
@@ -94,6 +92,6 @@ public class iConstruct {
     public static void main(String[] args) throws Exception {
         //传入路径
         System.out.println(
-                iuser("utils/iConstruct.java"));
+                iuser("com/example/mybatispluslearn01/utils/iConstruct.java",User.class));
     }
 }
