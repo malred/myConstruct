@@ -1,4 +1,4 @@
-package entitys;
+package org.malred.iset.entitys;
 
 import lombok.Data;
 

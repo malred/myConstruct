@@ -1,9 +1,6 @@
-package entitys;
+package org.malred.iset.entitys;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
 public class User {
