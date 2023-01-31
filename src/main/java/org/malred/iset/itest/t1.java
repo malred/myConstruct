@@ -8,13 +8,8 @@ package org.malred.iset.itest;
  */
 public class t1 {
     static t t = new t();
-
-    static {
-        System.out.println("a");
-    }
     public static void main(String[] args) throws Exception {
         t.t1();
-//        System.out.println(t1.class.getName());
-//        System.out.println(t.class.getName());
+        System.out.println(t); // 全部为null -> 需要自动扫描并创建
     }
 }

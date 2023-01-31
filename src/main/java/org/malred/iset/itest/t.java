@@ -4,7 +4,7 @@ package org.malred.iset.itest;
 import org.malred.iset.entitys.User;
 import org.malred.iset.entitys.tStu;
 import org.malred.iset.utils.iConstruct;
-import org.malred.iset.utils.iset;
+import org.malred.iset.Annotations.iset;
 
 import java.util.Map;
 
@@ -21,7 +21,7 @@ public class t {
     tStu stu1;
     @iset(setName = "age" , setData = "8" )
     tStu stu2;
-
+    t1 t1;
     public void t1() throws Exception {
         Map iuser = iConstruct.
                 generateDogs("org/malred/iset/itest/t.java");
@@ -35,5 +35,16 @@ public class t {
         System.out.println(map.get("stu"));
         System.out.println(map.get("stu1"));
         System.out.println(map.get("stu2"));
+    }
+
+    @Override
+    public String toString() {
+        return "t{" +
+                "user=" + user +
+                ", stu=" + stu +
+                ", stu1=" + stu1 +
+                ", stu2=" + stu2 +
+                ", t1=" + t1 +
+                '}';
     }
 }

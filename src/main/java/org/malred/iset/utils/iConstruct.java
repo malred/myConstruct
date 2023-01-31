@@ -2,6 +2,7 @@ package org.malred.iset.utils;
 
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
+import org.malred.iset.Annotations.iset;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -55,7 +56,7 @@ public class iConstruct {
         }
         // 根据解析完成的类实例字段名,获取类实例需要的字段,然后赋值
         for (int i = 0; i < classes.length; i++) {
-            logger.warn("为 => { "+classes[i]+" } 类实例字段,注入属性值开始");
+            logger.warn("为 => { " + classes[i] + " } 类实例字段,注入属性值开始");
             Field obj = clazz.getDeclaredField(classes[i]); // 获取所有字段
             // isAnnotationPresent(iset.class));//判断有没有加注解
             if (obj.isAnnotationPresent(iset.class)) {
@@ -72,43 +73,14 @@ public class iConstruct {
                             fields[j].toString().length());
                     logger.warn("获取类属性名称 => " + iargs[j].toString());
                 }
-                // 注入单个属性时
-                for (int k = 0; k < fields.length; k++) {
-                    if (is.setName().equals(iargs[k])) {
-                        logger.warn("设置参数 { " + iargs[k] + " } 为 { " + is.setData() + " } 中");
-                        Field declaredField = iu.getClass().getDeclaredField(iargs[k]);
-                        // 设置可访问(私有字段也能被访问)
-                        declaredField.setAccessible(true);
-                        // 传入字段和属性,赋值
-                        if (iUtils.isNumber(is.setData().toString())) {
-                            // 如果是数值类型需要转int
-                            declaredField.set(iu, Integer.parseInt(is.setData().toString()));
-                        } else {
-                            declaredField.set(iu, is.setData().toString());
-                        }
-                        logger.warn("设置参数 => " + iargs[k] + " 完毕");
-                    }
+                // 如果是注入单个属性
+                if (is.setName() != null && is.setData() != null &&
+                        is.setNames().length <= 0 && is.setDatas().length <= 0) {
+                    iUtils.setOneValue(is, fields, iargs, iu);
+                } else { // 注入多个属性
+                    iUtils.setAllValue(is, fields, iargs, iu);
                 }
-                // 注入属性
-                for (int l = 0; l < fields.length; l++) {
-                    for (int j = 0; j < is.setNames().length; j++) {
-                        if (is.setNames()[j].toString().equals(iargs[l])) {
-                            logger.warn("设置参数 { " + iargs[l] + " } 为 { "
-                                    + is.setDatas()[j].toString() + " } 中");
-                            // iu是创建了的实例
-                            Field declaredField = iu.getClass().getDeclaredField(iargs[l]);
-                            declaredField.setAccessible(true);
-                            // 如果是数值类型需要转int
-                            if (iUtils.isNumber(is.setDatas()[j].toString())) {
-                                declaredField.set(iu, Integer.parseInt(is.setDatas()[j].toString()));
-                            } else {
-                                declaredField.set(iu, is.setDatas()[j].toString());
-                            }
-                            logger.warn("设置参数 => " + iargs[l] + " 完毕");
-                        }
-                    }
-                }
-                logger.warn("为 => { "+classes[i]+" } 类实例字段,注入属性值完毕");
+                logger.warn("为 => { " + classes[i] + " } 类实例字段,注入属性值完毕");
                 logger.warn("将 { " + classes[i] + " } 放入map中");
                 // 放入dogs集合
                 u.put(classes[i], iu);

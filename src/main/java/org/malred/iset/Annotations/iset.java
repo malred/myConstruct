@@ -1,4 +1,4 @@
-package org.malred.iset.utils;
+package org.malred.iset.Annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
